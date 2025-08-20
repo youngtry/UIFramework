@@ -25,7 +25,9 @@
   "hideInEditor": false,
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.unity.textmeshpro": "3.0.0",
+    "com.unity.textmeshpro": "3.0.0"
+  },
+  "gitDependencies": {
     "com.tianry.commontools": "https://github.com/youngtry/CommonTools.git"
   },
   "optionalDependencies": {
