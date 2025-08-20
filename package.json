@@ -26,7 +26,7 @@
   "dependencies": {
     "com.unity.ugui": "1.0.0",
     "com.unity.textmeshpro": "3.0.0",
-    "com.youngtry.commontools": "https://github.com/youngtry/CommonTools.git"
+    "com.tianry.commontools": "https://github.com/youngtry/CommonTools.git"
   },
   "optionalDependencies": {
     "com.demigiant.dotween": "1.2.0"
