@@ -5,9 +5,9 @@
   "description": "A comprehensive UI framework for Unity with Page and Popup management, collection animations, customizable resources, and DOTween integration. Features manual page registration, type-safe page management, MessagePopup dialogs, and rich animation components with customizable icons and effects.",
   "unity": "2022.3",
   "unityRelease": "0f1",
-  "documentationUrl": "https://github.com/youngtry/UIBaseFramework#readme",
-  "changelogUrl": "https://github.com/youngtry/UIBaseFramework/blob/main/CHANGELOG.md",
-  "licensesUrl": "https://github.com/youngtry/UIBaseFramework/blob/main/LICENSE",
+  "documentationUrl": "https://github.com/youngtry/UIFramework#readme",
+  "changelogUrl": "https://github.com/youngtry/UIFramework/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/youngtry/UIFramework/blob/main/LICENSE",
   "keywords": [
     "ui",
     "framework",
