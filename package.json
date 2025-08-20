@@ -25,8 +25,7 @@
   "hideInEditor": false,
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.unity.textmeshpro": "3.0.0",
-    "com.tianry.commontools": "https://github.com/youngtry/CommonTools.git#upm"
+    "com.unity.textmeshpro": "3.0.0"
   },
   "optionalDependencies": {
     "com.demigiant.dotween": "1.2.0"
