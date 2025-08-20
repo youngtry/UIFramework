@@ -16,7 +16,7 @@ A simple and flexible UI framework for Unity that provides a clean architecture 
 ### Via Git URL (Recommended)
 1. Open Unity Package Manager
 2. Click the "+" button and select "Add package from git URL"
-3. Enter: `https://github.com/youngtry/UIBaseFramework.git`
+3. Enter: `https://github.com/youngtry/UIFramework.git`
 
 ### Via Local Package
 1. Download or clone this repository
