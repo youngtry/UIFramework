@@ -1,0 +1,46 @@
+{
+  "name": "com.tianry.uiframework",
+  "version": "1.2.1",
+  "displayName": "UI Framework",
+  "description": "A comprehensive UI framework for Unity with Page and Popup management, collection animations, customizable resources, and DOTween integration. Features manual page registration, type-safe page management, MessagePopup dialogs, and rich animation components with customizable icons and effects.",
+  "unity": "2022.3",
+  "unityRelease": "0f1",
+  "documentationUrl": "https://github.com/youngtry/UIBaseFramework#readme",
+  "changelogUrl": "https://github.com/youngtry/UIBaseFramework/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/youngtry/UIBaseFramework/blob/main/LICENSE",
+  "keywords": [
+    "ui",
+    "framework",
+    "page",
+    "popup",
+    "manager",
+    "unity"
+  ],
+  "author": {
+    "name": "tianry",
+    "email": "your-email@example.com",
+    "url": "https://github.com/youngtry"
+  },
+  "type": "library",
+  "hideInEditor": false,
+  "dependencies": {
+    "com.unity.ugui": "1.0.0",
+    "com.unity.textmeshpro": "3.0.0",
+    "com.youngtry.commontools": "https://github.com/youngtry/CommonTools.git"
+  },
+  "optionalDependencies": {
+    "com.demigiant.dotween": "1.2.0"
+  },
+  "samples": [
+    {
+      "displayName": "Basic UI Examples",
+      "description": "Basic examples showing how to use the UI Framework with sample pages and popups",
+      "path": "Samples/BasicExamples"
+    },
+    {
+      "displayName": "Animation Examples",
+      "description": "Examples with UI animations and effects",
+      "path": "Samples/AnimationExamples"
+    }
+  ]
+}
