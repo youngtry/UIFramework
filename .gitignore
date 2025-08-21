@@ -75,11 +75,27 @@ crashlytics-build.properties
 Thumbs.db
 
 # Package specific ignores
-# Ignore the original Assets folder since we're creating a UPM package
+# Ignore Unity project files since we're creating a UPM package
 /Assets/
 /ProjectSettings/
 /Packages/
 /UserSettings/
+
+# Unity project files (development environment)
+*.sln
+*.sln.meta
+*.csproj
+*.csproj.meta
+
+# Unity meta files for development files
+*.log.meta
+Logs.meta
+Temp.meta
+Library.meta
+UserSettings.meta
+ProjectSettings.meta
+Packages.meta
+Assets.meta
 
 # Additional Unity ignores (removing duplicates from above)
 
