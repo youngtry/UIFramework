@@ -32,14 +32,10 @@ The UI Framework will automatically install the following dependencies:
 ### Required Dependencies
 - **Unity UI (com.unity.ugui)** - Unity's built-in UI system
 - **TextMeshPro (com.unity.textmeshpro)** - Advanced text rendering
+- **DOTween (com.demigiant.dotween)** - Enhanced animations for UI components
 - **CommonTools** - Provides SingletonMonoBehaviour and utility functions
   - Repository: https://github.com/youngtry/CommonTools.git
   - Automatically installed via Git URL
-
-### Optional Dependencies
-- **DOTween (com.demigiant.dotween)** - Enhanced animations
-  - If not installed, fallback animations will be used
-  - Can be installed from Asset Store or Package Manager
 
 ## Post-Installation Setup
 
@@ -81,11 +77,10 @@ If you encounter errors about CommonTools:
 
 ### DOTween Compilation Errors
 
-If you see DOTween-related errors but don't have DOTween installed:
+If you see DOTween-related errors:
 
-1. The framework should automatically use fallback animations
-2. If errors persist, add `DOTWEEN_ENABLED` to Player Settings > Scripting Define Symbols
-3. Or install DOTween from the Asset Store
+1. DOTween is now a required dependency and should be automatically installed
+2. If errors persist, try removing and re-adding the package to ensure DOTween is properly installed
 
 ### Package Manager Issues
 

@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CommonTools;
 using UnityEngine;
-#if DOTWEEN_ENABLED
 using DG.Tweening;
-#endif
 
 namespace UIFramework
 {

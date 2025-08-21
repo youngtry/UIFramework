@@ -191,22 +191,17 @@ The framework requires CommonTools for core functionality:
 
 CommonTools is automatically installed as a dependency when you install the UI Framework.
 
-### DOTween Integration (Optional)
+### DOTween Integration
 
-The framework supports DOTween for enhanced animations. If DOTween is not installed, fallback animations using Unity's built-in systems will be used.
+The framework uses DOTween for enhanced animations. DOTween is automatically installed as a required dependency.
 
-#### Installing DOTween
+#### DOTween Features
 
-1. Import DOTween from the Asset Store or Package Manager
-2. The framework will automatically detect DOTween and use enhanced animations
-3. Define `DOTWEEN_ENABLED` in Player Settings > Scripting Define Symbols if needed
-
-#### Without DOTween
-
-The framework provides fallback animations using:
-- Unity's built-in Coroutines
-- Simple Lerp-based animations
-- Basic easing functions
+The framework leverages DOTween for:
+- Smooth UI animations and transitions
+- Collection animations (gold, diamond effects)
+- Page and popup transitions
+- Tip animations with fade and movement effects
 
 ## Best Practices
 

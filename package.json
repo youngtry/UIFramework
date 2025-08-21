@@ -18,16 +18,13 @@
   ],
   "author": {
     "name": "tianry",
-    "email": "your-email@example.com",
+    "email": "youngtry@gmail.com",
     "url": "https://github.com/youngtry"
   },
-  "type": "library",
   "hideInEditor": false,
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.unity.textmeshpro": "3.0.0"
-  },
-  "optionalDependencies": {
+    "com.unity.textmeshpro": "3.0.0",
     "com.demigiant.dotween": "1.2.0"
   },
   "samples": [

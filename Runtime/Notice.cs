@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-#if DOTWEEN_ENABLED
 using DG.Tweening;
-#endif
 
 namespace UIFramework
 {
