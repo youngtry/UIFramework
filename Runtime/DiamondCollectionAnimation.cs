@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using CommonTools;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 namespace UIFramework
 {
