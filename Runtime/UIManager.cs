@@ -13,7 +13,7 @@ namespace UIFramework
     /// </summary>
     public class UIManager : SingletonMonoBehaviour<UIManager>
     {
-        // [SerializeField] private Notice notice;
+        [SerializeField] private Notice notice;
         [SerializeField] private GameObject tipsPrefab;
         [SerializeField] private GameObject diamondAnimationPrefab;
         [SerializeField] private GameObject moneyAnimationPrefab;
@@ -31,8 +31,8 @@ namespace UIFramework
         void Start()
         {
 
-            CloseAllPages();
-            CloseAllPopups();
+            // CloseAllPages();
+            // CloseAllPopups();
         }
 
         void Update()
@@ -41,11 +41,11 @@ namespace UIFramework
 
         public void ShowNotice(string text)
         {
-            // if (notice != null)
-            // {
-            //     notice.gameObject.SetActive(true);
-            //     notice.ShowNotice(text);
-            // }
+            if (notice != null)
+            {
+                notice.gameObject.SetActive(true);
+                notice.ShowNotice(text);
+            }
         }
 
         public void ShowDiamondEffect(Vector3 worldPosition, double amount, bool multible)
@@ -56,8 +56,8 @@ namespace UIFramework
 
         public void ShowMoneyEffect(Vector3 worldPosition, double amount, bool multible)
         {
-            // GameObject moneyAnimation = Instantiate(moneyAnimationPrefab, transform);
-            // moneyAnimation.GetComponent<MoneyAnimation>().ShowMoneyEffect(worldPosition, amount, multible);
+            GameObject moneyAnimation = Instantiate(moneyAnimationPrefab, transform);
+            moneyAnimation.GetComponent<MoneyCollectionAnimation>().ShowMoneyEffect(worldPosition, amount, multible);
             // if(multible)
             // {
             //     AudioManager.Instance.PlaySFX("Coin");
@@ -68,7 +68,7 @@ namespace UIFramework
         public void ShowGoldEffect(Vector3 worldPosition, BigInteger amount)
         {
             // GameObject goldAnimation = Instantiate(goldAnimationPrefab, transform);
-            // goldAnimation.GetComponent<GoldAnimation>().ShowMoneyEffect(worldPosition, amount);
+            // goldAnimation.GetComponent<GoldCollectionAnimation>().ShowMoneyEffect(worldPosition, amount);
         }
 
         public void ShowTips(string tips)
