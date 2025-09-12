@@ -3,20 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CommonTools
 {
-    public class Utils : MonoBehaviour
+    public class Utils : SingletonMonoBehaviour<Utils>
     {
 
         public static string Country = "US";
 
         public static bool ShowLog = true;
+
+        private static Dictionary<string, Texture2D> mImageCacheDict = new Dictionary<string, Texture2D>();
+
         // Start is called before the first frame update
         void Start()
         {
-
+            mImageCacheDict = new Dictionary<string, Texture2D>();
         }
 
         // Update is called once per frame
@@ -25,11 +29,76 @@ namespace CommonTools
 
         }
 
+        public static void OnlineTexture(string mUrl, RawImage headImage)
+        {
+            Instance.SetOnlineTexture(mUrl, headImage);
+        }
+        
+        private void SetOnlineTexture(string mUrl, RawImage headImage)
+        {
+            Action<bool, Texture2D> handle = (bool mIsSuccess, Texture2D mSetupTexture) =>
+            {
+                if (mIsSuccess)
+                {
+                    headImage.gameObject.SetActive(true);
+                    headImage.texture = mSetupTexture;
+                }
+                else
+                {
+                    //TODO 加载失败处理
+
+                }
+            };
+
+            Texture2D mTexture;
+            if (TryGetImageInCache(mUrl, out mTexture))
+            {
+                handle(true, mTexture);
+            }
+            else
+            {
+                StartCoroutine(DownLoadImages(mUrl, handle));
+            }
+        }
+
+
+         IEnumerator DownLoadImages(string mUrl, Action<bool, Texture2D> mCallBack)
+        {
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(mUrl);
+
+            // 发送请求并等待响应
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                // Debug.LogError("下载图片失败: " + request.error);
+                mCallBack(false, null);
+            }
+            else
+            {
+                // 获取下载的图片（Texture2D）
+                Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+
+                // 将图片应用到 UI Image 组件上
+                UpdateImageInCache(mUrl, texture);
+                mCallBack(true, texture);
+            }
+        }
+
+        private static bool TryGetImageInCache(string mPath, out Texture2D mTexture)
+        {
+            return mImageCacheDict.TryGetValue(mPath, out mTexture);
+        }
+
+        private static void UpdateImageInCache(string mPath, Texture2D mTexture)
+        {
+            mImageCacheDict[mPath] = mTexture;
+        }
+
         ///resize layout
         public static void ResizeLayout(GameObject container)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(container.GetComponent<RectTransform>());
-
         }
 
         /// <summary>
