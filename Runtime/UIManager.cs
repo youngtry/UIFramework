@@ -15,6 +15,7 @@ namespace UIFramework
     {
         [SerializeField] private Notice notice;
         [SerializeField] private GameObject tipsPrefab;
+        [SerializeField] private GameObject rewardsTipPrefab;
         [SerializeField] private GameObject diamondAnimationPrefab;
         [SerializeField] private GameObject moneyAnimationPrefab;
         [SerializeField] private GameObject goldAnimationPrefab;
@@ -75,6 +76,12 @@ namespace UIFramework
         {
             GameObject tipsObj = Instantiate(tipsPrefab, transform);
             tipsObj.GetComponent<Tips>().ShowTips(tips);
+        }
+
+        public void ShowRewardsTip(string diamond, string money, string medal,float delay = 2)
+        {
+            GameObject rewardsTipObj = Instantiate(rewardsTipPrefab, transform);
+            rewardsTipObj.GetComponent<RewardsTip>().Initialize(diamond, money, medal, delay);
         }
 
         /// <summary>

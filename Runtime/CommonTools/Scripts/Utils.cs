@@ -16,7 +16,23 @@ namespace CommonTools
         public static bool ShowLog = true;
 
         private static Dictionary<string, Texture2D> mImageCacheDict = new Dictionary<string, Texture2D>();
+        static Utils()
+        {
+            Units.Add("");  // 对应小于 1000 的整数
+            Units.Add("k");
+            Units.Add("m");
+            Units.Add("b");
+            Units.Add("t");
 
+            // 生成 aa ~ zz 共 26*26 个单位
+            for (char c1 = 'a'; c1 <= 'z'; c1++)
+            {
+                for (char c2 = 'a'; c2 <= 'z'; c2++)
+                {
+                    Units.Add($"{c1}{c2}");
+                }
+            }
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -33,7 +49,7 @@ namespace CommonTools
         {
             Instance.SetOnlineTexture(mUrl, headImage);
         }
-        
+
         private void SetOnlineTexture(string mUrl, RawImage headImage)
         {
             Action<bool, Texture2D> handle = (bool mIsSuccess, Texture2D mSetupTexture) =>
@@ -62,7 +78,7 @@ namespace CommonTools
         }
 
 
-         IEnumerator DownLoadImages(string mUrl, Action<bool, Texture2D> mCallBack)
+        IEnumerator DownLoadImages(string mUrl, Action<bool, Texture2D> mCallBack)
         {
             UnityWebRequest request = UnityWebRequestTexture.GetTexture(mUrl);
 
