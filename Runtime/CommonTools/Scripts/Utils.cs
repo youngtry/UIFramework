@@ -312,17 +312,17 @@ namespace CommonTools
 
             if (unitIndex < Units.Count)
             {
-                double scaled = value * 100; // 保留两位小数
-                double intResult = scaled / divisor;
+                // 使用截断而不是四舍五入
+                double result = value / divisor;
+                double truncated = Math.Truncate(result * 100) / 100; // 截断到2位小数
 
-                decimal display = (decimal)intResult / 100;
-                return display.ToString("0.##", CultureInfo.InvariantCulture) + Units[unitIndex];
+                return truncated.ToString("0.##", CultureInfo.InvariantCulture) + Units[unitIndex];
             }
             else
             {
-                // 超出支持单位，使用科学计数法（保留两位小数）
-                double sci = double.Parse(value.ToString(), CultureInfo.InvariantCulture);
-                return sci.ToString("0.##e+0", CultureInfo.InvariantCulture);
+                // 超出支持单位，使用科学计数法（截断到两位小数）
+                double truncated = Math.Truncate(value * 100) / 100;
+                return truncated.ToString("0.##e+0", CultureInfo.InvariantCulture);
             }
         }
 
@@ -345,8 +345,8 @@ namespace CommonTools
             }
 
             // 将数字转换为字符串，使用截断方式避免四舍五入
-            // double truncated = Math.Truncate(number * 100) / 100; // 截断到2位小数
-            string str = number.ToString("0.00", CultureInfo.InvariantCulture);
+            double truncated = Math.Truncate(number * 100) / 100; // 截断到2位小数
+            string str = truncated.ToString("0.00", CultureInfo.InvariantCulture);
 
             // 如果包含小数点
             if (str.Contains("."))

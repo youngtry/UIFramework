@@ -12,6 +12,10 @@ public class RewardsTip : MonoBehaviour
     [SerializeField] private Text moneyText;
     [SerializeField] private Text medalText;
 
+    [SerializeField] private GameObject diamondNode;
+    [SerializeField] private GameObject moneyNode;
+    [SerializeField] private GameObject medalNode;
+
     [Header("动画设置")]
     [SerializeField] private float autoDestroyTime = 2f;
     [SerializeField] private float moveUpDistance = 100f;
@@ -43,6 +47,20 @@ public class RewardsTip : MonoBehaviour
     public void Initialize(int diamond = -1, int money = -1, int medal = -1, float destroyTime = 2f)
     {
         autoDestroyTime = destroyTime;
+        if (diamondNode != null)
+        { 
+                    diamondNode.SetActive(diamond >= 0);
+
+        }
+
+        if (moneyNode != null)
+        { 
+            moneyNode.SetActive(money >= 0);
+        }
+        if (medalNode != null)
+        { 
+            medalNode.SetActive(medal >= 0);
+        }
 
         // 设置钻石文本
         if (diamondText != null)
@@ -101,6 +119,18 @@ public class RewardsTip : MonoBehaviour
     {
         autoDestroyTime = destroyTime;
 
+        if (diamondNode != null)
+        { 
+            diamondNode.SetActive(!string.IsNullOrEmpty(diamondStr));
+        }
+        if (moneyNode != null)
+        { 
+            moneyNode.SetActive(!string.IsNullOrEmpty(moneyStr));
+        }
+        if (medalNode != null)
+        { 
+            medalNode.SetActive(!string.IsNullOrEmpty(medalStr));
+        }
         // 设置钻石文本
         if (diamondText != null)
         {
