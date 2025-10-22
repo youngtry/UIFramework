@@ -8,6 +8,59 @@ using UnityEngine.UI;
 
 namespace CommonTools
 {
+    public static class BigNumberFormatter
+    {
+        private static readonly List<string> Units = new List<string>();
+
+        static BigNumberFormatter()
+        {
+            Units.Add("");  // 对应小于 1000 的整数
+            Units.Add("k");
+            Units.Add("m");
+            Units.Add("b");
+            Units.Add("t");
+
+            // 生成 aa ~ zz 共 26*26 个单位
+            for (char c1 = 'a'; c1 <= 'z'; c1++)
+            {
+                for (char c2 = 'a'; c2 <= 'z'; c2++)
+                {
+                    Units.Add($"{c1}{c2}");
+                }
+            }
+        }
+
+        public static string Format(BigInteger value)
+        {
+            if (value < 1000)
+                return value.ToString(); // 千位以下直接显示整数
+
+            int unitIndex = 0;
+            BigInteger divisor = BigInteger.One;
+
+            while (value / divisor >= 1000 && unitIndex + 1 < Units.Count)
+            {
+                divisor *= 1000;
+                unitIndex++;
+            }
+
+            if (unitIndex < Units.Count)
+            {
+                BigInteger scaled = value * 100; // 保留两位小数
+                BigInteger intResult = scaled / divisor;
+
+                decimal display = (decimal)intResult / 100;
+                return display.ToString("0.##", CultureInfo.InvariantCulture) + Units[unitIndex];
+            }
+            else
+            {
+                // 超出支持单位，使用科学计数法（保留两位小数）
+                double sci = double.Parse(value.ToString(), CultureInfo.InvariantCulture);
+                return sci.ToString("0.##e+0", CultureInfo.InvariantCulture);
+            }
+        }
+    }
+
     public class Utils : SingletonMonoBehaviour<Utils>
     {
 
@@ -47,7 +100,7 @@ namespace CommonTools
 
         public static void OnlineTexture(string mUrl, RawImage headImage)
         {
-            Instance.SetOnlineTexture(mUrl, headImage);
+            Utils.Instance.SetOnlineTexture(mUrl, headImage);
         }
 
         private void SetOnlineTexture(string mUrl, RawImage headImage)
@@ -332,11 +385,12 @@ namespace CommonTools
 
 
         /// <summary>
-        /// 格式化double数字，最多保留2位小数（使用四舍五入）
+        /// 格式化double数字，最多保留指定位数的小数（使用截断，不四舍五入）
         /// </summary>
         /// <param name="number">要格式化的数字</param>
+        /// <param name="decimalPlaces">小数位数，默认2位</param>
         /// <returns>格式化后的字符串</returns>
-        public static string FormatDouble(double number)
+        public static string FormatDouble(double number, int decimalPlaces = 2)
         {
             if (number >= 1000)
             {
@@ -344,12 +398,19 @@ namespace CommonTools
                 return formatted;
             }
 
-            // 将数字转换为字符串，使用截断方式避免四舍五入
-            double truncated = Math.Truncate(number * 100) / 100; // 截断到2位小数
-            string str = truncated.ToString("0.00", CultureInfo.InvariantCulture);
+            // 确保小数位数在合理范围内
+            decimalPlaces = Math.Max(0, Math.Min(decimalPlaces, 15));
 
-            // 如果包含小数点
-            if (str.Contains("."))
+            // 将数字转换为字符串，使用截断方式避免四舍五入
+            double multiplier = Math.Pow(10, decimalPlaces);
+            double truncated = Math.Truncate(number * multiplier) / multiplier;
+
+            // 创建格式化字符串，例如 "0.00" 或 "0.000"
+            string formatString = "0." + new string('0', decimalPlaces);
+            string str = truncated.ToString(formatString, CultureInfo.InvariantCulture);
+
+            // 如果包含小数点且小数位数大于0
+            if (str.Contains(".") && decimalPlaces > 0)
             {
                 // 移除末尾的0
                 str = str.TrimEnd('0');
@@ -361,6 +422,16 @@ namespace CommonTools
             }
 
             return str;
+        }
+
+        /// <summary>
+        /// 格式化double数字，最多保留2位小数（使用截断，不四舍五入）
+        /// </summary>
+        /// <param name="number">要格式化的数字</param>
+        /// <returns>格式化后的字符串</returns>
+        public static string FormatDouble(double number)
+        {
+            return FormatDouble(number, 2);
         }
 
 
