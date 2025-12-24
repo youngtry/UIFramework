@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,8 +20,17 @@ public class AddTextAnimation : MonoBehaviour
 
     }
     
-    public void ShowAddCountText(string count)
+    public void ShowAddCountText(Vector3 worldPosition ,string count)
     {
+        transform.position = worldPosition;
         addCountText.text = "+" + count;
+        gameObject.SetActive(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(1.15f);
+        sequence.AppendCallback(() =>
+        {
+            gameObject.SetActive(false);
+        });
+        sequence.Play();
     }
 }

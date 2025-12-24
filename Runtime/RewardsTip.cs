@@ -8,13 +8,9 @@ using UnityEngine.UI;
 public class RewardsTip : MonoBehaviour
 {
     [Header("UI组件")]
-    [SerializeField] private Text diamondText;
-    [SerializeField] private Text moneyText;
-    [SerializeField] private Text medalText;
+    [SerializeField] private Text amountText;
 
-    [SerializeField] private GameObject diamondNode;
-    [SerializeField] private GameObject moneyNode;
-    [SerializeField] private GameObject medalNode;
+    [SerializeField] private Transform targetContainer;
 
     [Header("动画设置")]
     [SerializeField] private float autoDestroyTime = 2f;
@@ -40,143 +36,17 @@ public class RewardsTip : MonoBehaviour
     /// <summary>
     /// 初始化奖励提示并开始自动消失倒计时
     /// </summary>
-    /// <param name="diamond">钻石数量，-1表示不显示</param>
-    /// <param name="money">金币数量，-1表示不显示</param>
-    /// <param name="medal">奖章数量，-1表示不显示</param>
-    /// <param name="destroyTime">自动消失时间（秒），默认2秒</param>
-    public void Initialize(int diamond = -1, int money = -1, int medal = -1, float destroyTime = 2f)
+    public void Initialize(GameObject target, string amountStr, float destroyTime = 2f)
     {
         autoDestroyTime = destroyTime;
-        if (diamondNode != null)
-        { 
-                    diamondNode.SetActive(diamond >= 0);
-
-        }
-
-        if (moneyNode != null)
-        { 
-            moneyNode.SetActive(money >= 0);
-        }
-        if (medalNode != null)
-        { 
-            medalNode.SetActive(medal >= 0);
-        }
-
-        // 设置钻石文本
-        if (diamondText != null)
-        {
-            if (diamond >= 0)
-            {
-                diamondText.text = diamond.ToString();
-                diamondText.gameObject.SetActive(true);
-            }
-            else
-            {
-                diamondText.gameObject.SetActive(false);
-            }
-        }
-
-        // 设置金币文本
-        if (moneyText != null)
-        {
-            if (money >= 0)
-            {
-                moneyText.text = money.ToString();
-                moneyText.gameObject.SetActive(true);
-            }
-            else
-            {
-                moneyText.gameObject.SetActive(false);
-            }
-        }
-
-        // 设置奖章文本
-        if (medalText != null)
-        {
-            if (medal >= 0)
-            {
-                medalText.text = medal.ToString();
-                medalText.gameObject.SetActive(true);
-            }
-            else
-            {
-                medalText.gameObject.SetActive(false);
-            }
-        }
+        target.transform.SetParent(targetContainer);
+        amountText.text = amountStr;
 
         // 开始自动消失倒计时
         StartCoroutine(AutoDestroyCoroutine());
     }
 
-    /// <summary>
-    /// 初始化奖励提示（字符串版本）
-    /// </summary>
-    /// <param name="diamondStr">钻石文本，null或空字符串表示不显示</param>
-    /// <param name="moneyStr">金币文本，null或空字符串表示不显示</param>
-    /// <param name="medalStr">奖章文本，null或空字符串表示不显示</param>
-    /// <param name="destroyTime">自动消失时间（秒），默认2秒</param>
-    public void Initialize(string diamondStr = null, string moneyStr = null, string medalStr = null, float destroyTime = 2f)
-    {
-        autoDestroyTime = destroyTime;
-
-        if (diamondNode != null)
-        { 
-            diamondNode.SetActive(!string.IsNullOrEmpty(diamondStr));
-        }
-        if (moneyNode != null)
-        { 
-            moneyNode.SetActive(!string.IsNullOrEmpty(moneyStr));
-        }
-        if (medalNode != null)
-        { 
-            medalNode.SetActive(!string.IsNullOrEmpty(medalStr));
-        }
-        // 设置钻石文本
-        if (diamondText != null)
-        {
-            if (!string.IsNullOrEmpty(diamondStr))
-            {
-                diamondText.text = diamondStr;
-                diamondText.gameObject.SetActive(true);
-            }
-            else
-            {
-                diamondText.gameObject.SetActive(false);
-            }
-        }
-
-        // 设置金币文本
-        if (moneyText != null)
-        {
-            if (!string.IsNullOrEmpty(moneyStr))
-            {
-                moneyText.text = moneyStr;
-                moneyText.gameObject.SetActive(true);
-            }
-            else
-            {
-                moneyText.gameObject.SetActive(false);
-            }
-        }
-
-        // 设置奖章文本
-        if (medalText != null)
-        {
-            if (!string.IsNullOrEmpty(medalStr))
-            {
-                medalText.text = medalStr;
-                medalText.gameObject.SetActive(true);
-            }
-            else
-            {
-                medalText.gameObject.SetActive(false);
-            }
-        }
-
-        // 开始自动消失倒计时
-        StartCoroutine(AutoDestroyCoroutine());
-    }
-
+    
     /// <summary>
     /// 自动消失协程
     /// </summary>
@@ -211,10 +81,11 @@ public class RewardsTip : MonoBehaviour
         destroySequence.Join(canvasGroup.DOFade(0f, fadeOutDuration).SetEase(Ease.OutQuart));
 
         // 动画完成后销毁对象
-        destroySequence.OnComplete(() => {
+        destroySequence.OnComplete(() =>
+        {
             if (gameObject != null)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         });
     }

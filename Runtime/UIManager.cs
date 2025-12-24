@@ -4,10 +4,35 @@ using System.Collections.Generic;
 using System.Numerics;
 using Vector3 = UnityEngine.Vector3;
 using CommonTools;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace UIFramework
 {
+
+    [Serializable]
+    public class CollectionAnimationData
+    {
+        public List<GameObject> target;
+        public Vector3 startPosition;
+        public Transform targetTransform;
+        public bool isMultiple;
+        //是否指定endPosition
+        public bool  isSpecifyEndPosition;
+        public Vector3 endPosition;
+        public string amountStr;
+
+        public CollectionAnimationData(List<GameObject> target, Vector3 startPosition, bool isMultiple, string amountStr)
+        {
+            this.target = target;
+            this.startPosition = startPosition;
+            this.isMultiple = isMultiple;
+            this.isSpecifyEndPosition = false;
+            this.endPosition = Vector3.zero;
+            this.amountStr = amountStr;
+        }
+    }
     /// <summary>
     /// UI管理器，用于统一管理所有页面和弹窗
     /// </summary>
@@ -16,9 +41,8 @@ namespace UIFramework
         [SerializeField] private Notice notice;
         [SerializeField] private GameObject tipsPrefab;
         [SerializeField] private GameObject rewardsTipPrefab;
-        [SerializeField] private GameObject diamondAnimationPrefab;
-        [SerializeField] private GameObject moneyAnimationPrefab;
-        [SerializeField] private GameObject goldAnimationPrefab;
+        [SerializeField] private GameObject addTextAnimationPrefab;
+        [SerializeField] private GameObject collectionAnimationPrefab;
         // 页面列表
         [SerializeField] private List<Page> pages = new List<Page>();
         // 弹窗列表
@@ -28,6 +52,11 @@ namespace UIFramework
 
         // 弹窗队列系统
         private Popup currentVisiblePopup = null;
+
+        private List<CollectionAnimation> collectionAnimations = new List<CollectionAnimation>();
+        private List<AddTextAnimation> addTextAnimations = new List<AddTextAnimation>();
+        private List<Tips> tips = new List<Tips>();
+        private List<RewardsTip> rewardsTips = new List<RewardsTip>();
 
         void Start()
         {
@@ -49,39 +78,68 @@ namespace UIFramework
             }
         }
 
-        public void ShowDiamondEffect(Vector3 worldPosition, double amount, bool multible)
+        public void ShowCollectionEffect(CollectionAnimationData data)
         {
-            GameObject diamondAnimation = Instantiate(diamondAnimationPrefab, transform);
-            diamondAnimation.GetComponent<DiamondCollectionAnimation>().ShowDiamondEffect(worldPosition, amount, multible);
+            for (int i = 0; i < collectionAnimations.Count; i++)
+            {
+                if (!collectionAnimations[i].gameObject.activeInHierarchy)
+                {
+                    collectionAnimations[i].ShowEffect(data);
+                    
+                    return;
+                }
+            }
+            GameObject collectionAnimation = Instantiate(collectionAnimationPrefab, transform);
+            collectionAnimation.GetComponent<CollectionAnimation>().ShowEffect(data);
+            collectionAnimations.Add(collectionAnimation.GetComponent<CollectionAnimation>());
         }
 
-        public void ShowMoneyEffect(Vector3 worldPosition, double amount, bool multible)
+        public void ShowAddTextEffect(Vector3 targetPos, string text)
         {
-            GameObject moneyAnimation = Instantiate(moneyAnimationPrefab, transform);
-            moneyAnimation.GetComponent<MoneyCollectionAnimation>().ShowMoneyEffect(worldPosition, amount, multible);
-            // if(multible)
-            // {
-            //     AudioManager.Instance.PlaySFX("Coin");
-            // }
+            for (int i = 0; i < addTextAnimations.Count; i++)
+            {
+                if (!addTextAnimations[i].gameObject.activeInHierarchy)
+                {
+                    addTextAnimations[i].ShowAddCountText(targetPos, text);
+                    return;
+                }
+            }
 
+            GameObject addTextAnimation = Instantiate(addTextAnimationPrefab, transform);
+            addTextAnimation.GetComponent<AddTextAnimation>().ShowAddCountText(targetPos, text);
+            addTextAnimations.Add(addTextAnimation.GetComponent<AddTextAnimation>());
         }
 
-        public void ShowGoldEffect(Vector3 worldPosition, BigInteger amount)
-        {
-            // GameObject goldAnimation = Instantiate(goldAnimationPrefab, transform);
-            // goldAnimation.GetComponent<GoldCollectionAnimation>().ShowMoneyEffect(worldPosition, amount);
-        }
+        
 
-        public void ShowTips(string tips)
+        public void ShowTips(string tipStr)
         {
+            for (int i = 0; i < tips.Count; i++)
+            {
+                if (!tips[i].gameObject.activeInHierarchy)
+                {
+                    tips[i].ShowTips(tipStr);
+                    return;
+                }
+            }
             GameObject tipsObj = Instantiate(tipsPrefab, transform);
-            tipsObj.GetComponent<Tips>().ShowTips(tips);
+            tipsObj.GetComponent<Tips>().ShowTips(tipStr);
+            tips.Add(tipsObj.GetComponent<Tips>());
         }
 
-        public void ShowRewardsTip(string diamond, string money, string medal,float delay = 2)
+        public void ShowRewardsTip(GameObject target,string amountStr,float delay = 2)
         {
+            for (int i = 0; i < rewardsTips.Count; i++)
+            {
+                if (!rewardsTips[i].gameObject.activeInHierarchy)
+                {
+                    rewardsTips[i].Initialize(target, amountStr, delay);
+                    return;
+                }
+            }
             GameObject rewardsTipObj = Instantiate(rewardsTipPrefab, transform);
-            rewardsTipObj.GetComponent<RewardsTip>().Initialize(diamond, money, medal, delay);
+            rewardsTipObj.GetComponent<RewardsTip>().Initialize(target, amountStr, delay);
+            rewardsTips.Add(rewardsTipObj.GetComponent<RewardsTip>());
         }
 
         /// <summary>

@@ -120,7 +120,7 @@ namespace UIFramework
                     // 动画完成后销毁游戏对象
                     sequence.OnComplete(() =>
                     {
-                        Destroy(gameObject);
+                        gameObject.SetActive(false);
                     });
                     sequence.Play();
 
