@@ -24,7 +24,7 @@ public class AddTextAnimation : MonoBehaviour
     public void ShowAddCountText(Vector3 worldPosition ,string count)
     {
         isPlaying = true;
-        transform.position = new Vector3(worldPosition.x+200, worldPosition.y, 0);
+        transform.position = new Vector3(worldPosition.x+50, worldPosition.y, 0);
         addCountText.text = "+" + count;
         gameObject.SetActive(true);
         Sequence sequence = DOTween.Sequence();
