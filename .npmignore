@@ -13,10 +13,12 @@ UserSettings/
 *.sln
 *.meta
 
-# Except meta files in Runtime, Editor, Samples
+# Except meta files we need
 !Runtime/**/*.meta
 !Editor/**/*.meta
 !Samples/**/*.meta
+!*.md.meta
+!LICENSE.meta
 
 # Git files
 .git/
