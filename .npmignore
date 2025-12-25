@@ -14,8 +14,11 @@ UserSettings/
 *.meta
 
 # Except meta files we need
+!Runtime.meta
 !Runtime/**/*.meta
+!Editor.meta
 !Editor/**/*.meta
+!Samples.meta
 !Samples/**/*.meta
 !*.md.meta
 !LICENSE.meta
