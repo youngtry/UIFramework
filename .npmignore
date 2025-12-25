@@ -1,0 +1,35 @@
+# Unity project files
+Assets/
+Library/
+Logs/
+Temp/
+Packages/
+ProjectSettings/
+UserSettings/
+.vscode/
+
+# Unity generated files
+*.csproj
+*.sln
+*.meta
+
+# Except meta files in Runtime, Editor, Samples
+!Runtime/**/*.meta
+!Editor/**/*.meta
+!Samples/**/*.meta
+
+# Git files
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# npm pack output
+*.tgz
+package/
+
+# Other
+*.log
+
