@@ -22,6 +22,7 @@ UserSettings/
 !Samples/**/*.meta
 !*.md.meta
 !LICENSE.meta
+!package.json.meta
 
 # Git files
 .git/
