@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CommonTools;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace UIFramework
 {
@@ -40,11 +41,11 @@ namespace UIFramework
     public class MessagePopup : Popup
     {
         [Header("UI组件")]
-        [SerializeField] private Text titleText;
-        [SerializeField] private Text messageText;
+        [SerializeField] private TextMeshProUGUI titleText;
+        [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button cancelButton;
-        [SerializeField] private Text confirmButtonText;
+        [SerializeField] private TextMeshProUGUI confirmButtonText;
         // [SerializeField] private Text cancelButtonText;
         [SerializeField] private GameObject cancelButtonObject; // 用于控制取消按钮的显示/隐藏
 

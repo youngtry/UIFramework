@@ -434,6 +434,29 @@ namespace CommonTools
             return FormatDouble(number, 2);
         }
 
+        /// <summary>
+        /// 格式化float数字，支持自定义小数位数，自动去除末尾的0
+        /// </summary>
+        /// <param name="number">要格式化的数字</param>
+        /// <param name="decimalPlaces">小数位数，默认2位</param>
+        /// <returns>格式化后的字符串</returns>
+        public static string FormatFloat(float number, int decimalPlaces = 2)
+        {
+            return FormatDouble(number, decimalPlaces);
+        }
+
+        /// <summary>
+        /// 格式化float数字，默认保留2位小数
+        /// </summary>
+        /// <param name="number">要格式化的数字</param>
+        /// <returns>格式化后的字符串</returns>
+        public static string FormatFloat(float number)
+        {
+            return FormatDouble(number, 2);
+        }
+
+
+
 
         /// <summary>
         /// 将数字转换为英语序数词格式（如：1st, 2nd, 3rd, 4th等）
