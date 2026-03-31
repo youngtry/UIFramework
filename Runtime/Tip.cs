@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using CommonTools;
+using TMPro;
 
 namespace UIFramework
 {
     public class Tips : MonoBehaviour
     {
+        //text or TextMeshPro
         [Header("UI组件")]
-        [SerializeField] private Text tipsText;
+        [SerializeField] private TextMeshProUGUI tipsText;
         [SerializeField] private CanvasGroup canvasGroup;
 
         [Header("自动隐藏设置")]
@@ -286,28 +288,28 @@ namespace UIFramework
             RectTransform rectTransform = tipsGO.AddComponent<RectTransform>();
             CanvasGroup canvasGroup = tipsGO.AddComponent<CanvasGroup>();
 
-            // 创建文本子对象
-            GameObject textGO = new GameObject("Text");
-            textGO.transform.SetParent(tipsGO.transform, false);
+            // // 创建文本子对象
+            // GameObject textGO = new GameObject("Text");
+            // textGO.transform.SetParent(tipsGO.transform, false);
 
-            RectTransform textRect = textGO.AddComponent<RectTransform>();
-            Text textComponent = textGO.AddComponent<Text>();
+            // RectTransform textRect = textGO.AddComponent<RectTransform>();
+            // TextMeshProUGUI textComponent = textGO.AddComponent<Text>();
 
-            // 设置文本组件属性
-            textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            textComponent.fontSize = 16;
-            textComponent.color = Color.white;
-            textComponent.alignment = TextAnchor.MiddleCenter;
+            // // 设置文本组件属性
+            // textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            // textComponent.fontSize = 16;
+            // textComponent.color = Color.white;
+            // textComponent.alignment = TextAnchor.MiddleCenter;
 
-            // 设置RectTransform
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = Vector2.zero;
-            textRect.offsetMax = Vector2.zero;
+            // // 设置RectTransform
+            // textRect.anchorMin = Vector2.zero;
+            // textRect.anchorMax = Vector2.one;
+            // textRect.offsetMin = Vector2.zero;
+            // textRect.offsetMax = Vector2.zero;
 
             // 添加Tips组件
-            Tips tipsComponent = tipsGO.AddComponent<Tips>();
-            tipsComponent.tipsText = textComponent;
+            Tips tipsComponent = tipsGO.GetComponent<Tips>();
+            // tipsComponent.tipsText = tips;  
             tipsComponent.canvasGroup = canvasGroup;
             tipsComponent.autoHideDelay = autoHideDelay;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace UIFramework
     public class Notice : MonoBehaviour
     {
         [Header("UI组件")]
-        [SerializeField] private Text noticeContext;
+        [SerializeField] private TextMeshProUGUI noticeContext;
         [SerializeField] private RectTransform noticeContainer;
         [SerializeField] private Button clickButton;
 
